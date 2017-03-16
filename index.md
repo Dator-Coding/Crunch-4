@@ -1,37 +1,75 @@
-## Welcome to GitHub Pages
+import os, codecs
+class Core():
+    print('CRUNCH frameworks version 4.0 loaded')
+    global FirstPass #Used in verification process
+    global SecondPass
+    FirstPass = False
+    SecondPass = False #Used in verification process
+    def __init__(self): #Gets required information to run Crunch
+        filePathToUse = input('State the file index to use: ')
+        if ((os.path.isfile(filePathToUse)) == True):
+            print('index found')
+            #Module to be passed to
+            Core.fileWorker(filePathToUse)
+            #Module to be passed to
+        else:
+            print('index not found')
+            Core()
 
-You can use the [editor on GitHub](https://github.com/Dator-Coding/Crunch-4/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+    def fileWorker(filepath):
+        locatedName = False
+        #breaks down file's into word based outputs
+        with open(filepath) as inputfile:
+            for fileName in inputfile:
+                fileName = fileName.replace('\n','')
+                try:
+                    print('passed file name')
+                    with codecs.open(fileName,'r','utf-8') as ins:
+                        for line in ins:
+                            line = line.replace(')',' ')
+                            line = line.replace('(', ' ')
+                            line = line.replace('_', ' ')
+                            line = line.replace('!', ' ')
+                            line = line.replace('-', ' ')
+                            line = line.replace('.', ' ')
+                            line = line.replace('"', ' ')
+                            line = line.replace(';', ' ')
+                            line = line.replace(':', ' ')
+                            line = line.replace(',', ' ')
+                            line = line.replace('/', ' ')
+                            line = line.replace('\\', ' ')
+                            line = line.replace('|', ' ')
+                            line = line.replace("'", ' ')
+                            line = line.replace('+', ' ')
+                            line = line.replace('-', ' ')
+                            line = line.replace('=', ' ')
+                            line = line.replace('*', ' ')
+                            words = (line.split(" "))
+                            for word in words:
+                                print(word) #This could be outputted to a new module
+                                result = (Core.CrunchWordBreaker(word))
+                                if (result == True): #To exit for loop when critera is met
+                                    print (fileName)
+                                    break
+                            if (result == True): #To exit for loop when critera is met
+                                break
+                        if (result == True): #To exit for loop when critera is met
+                            break
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+                except:
+                    print('error with file',fileName)
 
-### Markdown
+    def CrunchWordBreaker(wordToProcess):
+        if (wordToProcess == 'communism'):
+            print('Criteria to exit loop has been met')
+            return True
+        else:
+            return False
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Dator-Coding/Crunch-4/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Core()
+#result = Core.CrunchMain('E:\\Files\\gutenberg\\1\\0\\0\\0\\10003\\10003.txt')
+#if (result == False):
+#    print('failed to locate file')
+#else:
+#    print('succeeded in locating file')
+os.system('pause')
